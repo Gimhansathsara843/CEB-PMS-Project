@@ -169,7 +169,7 @@ const ConnectionDetails = ({ formData, setFormData, handleSubmit }) => {
         </div>
     
         <div className="form-group">
-          <label className="form-label required">Tariff Category Code</label>
+          <label className="form-label required">Customer Type</label>
           <select 
             id="tariffCatCode" 
             name="tariffCatCode" 
@@ -192,6 +192,51 @@ const ConnectionDetails = ({ formData, setFormData, handleSubmit }) => {
           </select>
         </div>
       </div>
+
+      {/* Rest of your component remains the same */}
+      <div className="form-box-inner">
+        <div className="form-group">
+          <label className="form-label required">Tariff Category Code</label>
+          <select
+              id="customerCategory"
+              name="customerCategory"
+              className="form-select"
+              value={formData.customerCategory}
+              onChange={(e) => setFormData({ ...formData, customerCategory: e.target.value })}
+          >
+            <option value="PRIV">DP</option>
+            <option value="GOVE">Government</option>
+            <option value="SEGO">Semi Government</option>
+            <option value="RELI">Religious</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label required">Tariff Code</label>
+          <select
+              id="tariffCatCode"
+              name="tariffCatCode"
+              className="form-select"
+              value={formData.tariffCatCode || "DP"}
+              onChange={(e) => {
+                const selectedCatCode = e.target.value;
+                setFormData({
+                  ...formData,
+                  tariffCatCode: selectedCatCode,
+                  tariffCode: tariffMapping[selectedCatCode]
+                });
+              }}
+          >
+            <option value="DP">11</option>
+            <option value="RP">Religious purpose</option>
+            <option value="GP">General purpose</option>
+            <option value="IP">Industrial purpose</option>
+            <option value="AG">Agricultural purpose</option>
+          </select>
+        </div>
+      </div>
+
+
     </div>
   );
 };

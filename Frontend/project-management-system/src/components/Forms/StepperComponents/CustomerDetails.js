@@ -61,6 +61,70 @@ const CustomerDetails = ({ formData, setFormData, handleChange }) => {
 
   return (
     <div className="dashboard-card">
+      <div className="form-box-board">
+      <div className="form-box">
+        <div className="form-row">
+            <div className="form-box-inner">
+              <div className="form-group">
+                <label className="form-label" htmlFor="suburb">
+                  Temp ID:
+                </label>
+                <input
+                    type="text"
+                    id="tempId"
+                    name="tempId"
+                    className="form-input"
+                  //  value={formData.suburb}
+                    onChange={handleChange}
+                    onInput={(e) => (e.target.value = e.target.value.toUpperCase())}
+                    // readOnly={customerExists}
+                    required
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="suburb">
+                  Application No:
+                </label>
+                <input
+                    type="text"
+                    id="applicationNo"
+                    name="applicationNo"
+                    className="form-input"
+                   // value={formData.suburb}
+                    onChange={handleChange}
+                    onInput={(e) => (e.target.value = e.target.value.toUpperCase())}
+                    // readOnly={customerExists}
+                    required
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label" htmlFor="suburb">
+                  Online Application No:
+                </label>
+                <input
+                    type="text"
+                    id="onlineApllicationNo"
+                    name="onlineApllicationNo"
+                    className="form-input"
+                   // value={formData.suburb}
+                    onChange={handleChange}
+                    onInput={(e) => (e.target.value = e.target.value.toUpperCase())}
+                    // readOnly={customerExists}
+                    required
+                />
+              </div>
+
+            </div>
+          <div className="">
+            <button value="find" onClick={handlefind} className="find-button-search">
+              search
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <br/>
+      <div className="form-box-board">
       <div className="form-box">
         <div className="form-row">
           <div className="form-group">
@@ -68,7 +132,7 @@ const CustomerDetails = ({ formData, setFormData, handleChange }) => {
             <select
               id="type"
               name="personalCorporate"
-              className="form-select"
+              className="form-select-halfhalf"
               onChange={handleSelectIdType}
               value={formData.personalCorporate}
               disabled={customerExists}
@@ -303,19 +367,22 @@ const CustomerDetails = ({ formData, setFormData, handleChange }) => {
               onChange={handleChange}
             />
           </div>
+        </div>
+        <div className="form-box-inner">
           <div className="form-group">
             <label className="form-label" htmlFor="email">
               Email:
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              className="form-input-email"
-              value={formData.email}
-              onChange={handleChange}
+                type="email"
+                id="email"
+                name="email"
+                className="form-select-halfhalf"
+                value={formData.email}
+                onChange={handleChange}
             />
           </div>
+
         </div>
 
         <div className="form-row">
@@ -383,6 +450,7 @@ const CustomerDetails = ({ formData, setFormData, handleChange }) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

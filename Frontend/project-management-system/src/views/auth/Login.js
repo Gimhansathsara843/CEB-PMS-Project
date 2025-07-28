@@ -43,7 +43,7 @@ export default function Login() {
         }
 
         console.log("TEST MODE: Login successful with test credentials");
-        history.push("/form");
+        history.push("/admin/dashboard");
         return;
       }
 

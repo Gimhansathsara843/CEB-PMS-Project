@@ -56,59 +56,60 @@ const ServiceLocationDetails = ({ formData, handleChange }) => {
     <div className="form-box">
       {error && <div className="error-message">{error}</div>}
 
-      <div className="form-box-inner">
-        <div className="form-group">
-          <label className="form-label required">Select your Area</label>
-          <select
-            id="area"
-            name="area"
-            className="form-select"
-            value={formData.area}
-            onChange={handleChange}
-            disabled={loadingAreas}
-            required
-          >
-            <option value="">Select Area</option>
-            {areas.map((area) => (
-              <option key={area.deptId} value={area.deptArea}>
-                {area.deptArea}
-              </option>
-            ))}
-          </select>
-          {loadingAreas && <div>Loading areas...</div>}
-        </div>
-      </div>
+      {/*<div className="form-box-inner">*/}
+      {/*  <div className="form-group">*/}
+      {/*    <label className="form-label required">Select your Area</label>*/}
+      {/*    <select*/}
+      {/*      id="area"*/}
+      {/*      name="area"*/}
+      {/*      className="form-select"*/}
+      {/*      value={formData.area}*/}
+      {/*      onChange={handleChange}*/}
+      {/*      disabled={loadingAreas}*/}
+      {/*      required*/}
+      {/*    >*/}
+      {/*      <option value="">Select Area</option>*/}
+      {/*      {areas.map((area) => (*/}
+      {/*        <option key={area.deptId} value={area.deptArea}>*/}
+      {/*          {area.deptArea}*/}
+      {/*        </option>*/}
+      {/*      ))}*/}
+      {/*    </select>*/}
+      {/*    {loadingAreas && <div>Loading areas...</div>}*/}
+      {/*  </div>*/}
+      {/*</div>*/}
 
-      <div className="form-box-inner">
-        <div className="form-group">
-          <label className="form-label required">
-            Select nearest Consumer Service Center
-          </label>
-          <select
-            id="csc"
-            name="deptId"
-            className="form-select"
-            value={formData.deptId || ""}
-            onChange={handleChange}
-            disabled={loadingCscs || !formData.area}
-            required
-          >
-            <option value="">Select CSC</option>
-            {cscs.map((csc) => (
-              <option key={csc.deptId} value={csc.deptId}>
-                {csc.deptFullName}
-              </option>
-            ))}
-          </select>
-          {loadingCscs && <div>Loading CSCs...</div>}
-        </div>
-      </div>
+      {/*<div className="form-box-inner">*/}
+      {/*  <div className="form-group">*/}
+      {/*    <label className="form-label required">*/}
+      {/*      Select nearest Consumer Service Center*/}
+      {/*    </label>*/}
+      {/*    <select*/}
+      {/*      id="csc"*/}
+      {/*      name="deptId"*/}
+      {/*      className="form-select"*/}
+      {/*      value={formData.deptId || ""}*/}
+      {/*      onChange={handleChange}*/}
+      {/*      disabled={loadingCscs || !formData.area}*/}
+      {/*      required*/}
+      {/*    >*/}
+      {/*      <option value="">Select CSC</option>*/}
+      {/*      {cscs.map((csc) => (*/}
+      {/*        <option key={csc.deptId} value={csc.deptId}>*/}
+      {/*          {csc.deptFullName}*/}
+      {/*        </option>*/}
+      {/*      ))}*/}
+      {/*    </select>*/}
+      {/*    {loadingCscs && <div>Loading CSCs...</div>}*/}
+      {/*  </div>*/}
+      {/*</div>*/}
 
       {/* Address details inputs */}
       <div className="form-box-inner">
         <div className="form-group">
           <label className="form-label required" htmlFor="shouseNo">
-            House/Building No:
+            {/*House/Building No:*/}
+            Street Address:
           </label>
           <input
             type="text"
@@ -124,7 +125,7 @@ const ServiceLocationDetails = ({ formData, handleChange }) => {
 
         <div className="form-group">
           <label className="form-label required" htmlFor="saddress">
-            Street Name:
+            Suburb:
           </label>
           <input
             type="text"
@@ -139,6 +140,7 @@ const ServiceLocationDetails = ({ formData, handleChange }) => {
         </div>
       </div>
 
+      <div className="form-box-inner">
       <div className="form-group">
         <label className="form-label required" htmlFor="scity">
           City:
@@ -166,6 +168,7 @@ const ServiceLocationDetails = ({ formData, handleChange }) => {
           onChange={handleChange}
         />
       </div>
+        </div>
 
       {/* Additional optional details */}
       <div className="form-box-inner">
@@ -197,8 +200,10 @@ const ServiceLocationDetails = ({ formData, handleChange }) => {
         </div>
       </div>
 
+      <div className={"form-box-inner"}>
       {/* Ownership radio buttons */}
-      {/* <div className="form-row">
+      <div className="form-group">
+        <div className="form-row">
         <label className="form-label" htmlFor="ownership">
           Ownership:
         </label>
@@ -230,7 +235,84 @@ const ServiceLocationDetails = ({ formData, handleChange }) => {
             Rent
           </label>
         </div>
-      </div> */}
+        </div>
+      </div>
+
+      {/* Ownership radio buttons */}
+      <div className="form-group">
+        <div className="form-row">
+          <label className="form-label" htmlFor="ownership">
+            Occupy /Owner Certified:
+          </label>
+          &nbsp;&nbsp;
+          <div className="radio-group">
+            <input
+                type="radio"
+                id="Occupy"
+                name="ownership"
+                value="Occupy"
+                className="radio-input"
+                checked={formData.ownership === "Occupy"}
+                onChange={handleChange}
+            />
+            <label htmlFor="Occupy" className="radio-label">
+              Yes
+            </label>
+            &nbsp;
+            <input
+                type="radio"
+                id="Rent"
+                name="ownership"
+                value="Rent"
+                className="radio-input"
+                checked={formData.ownership === "Rent"}
+                onChange={handleChange}
+            />
+            <label htmlFor="Rent" className="radio-label">
+              No
+            </label>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+      {/* Occupy /Owner Certified */}
+      <div className="form-row">
+        <label className="form-label" htmlFor="ownership">
+          Is Government Code:
+        </label>
+        &nbsp;&nbsp;
+        <div className="radio-group">
+          <input
+              type="radio"
+              id="Occupy"
+              name="ownership"
+              value="Occupy"
+              className="radio-input"
+              checked={formData.ownership === "Occupy"}
+              onChange={handleChange}
+          />
+          <label htmlFor="Occupy" className="radio-label">
+            Yes
+          </label>
+          &nbsp;
+          <input
+              type="radio"
+              id="Rent"
+              name="ownership"
+              value="Rent"
+              className="radio-input"
+              checked={formData.ownership === "Rent"}
+              onChange={handleChange}
+          />
+          <label htmlFor="Rent" className="radio-label">
+            No
+          </label>
+        </div>
+      </div>
+
+
     </div>
   );
 };

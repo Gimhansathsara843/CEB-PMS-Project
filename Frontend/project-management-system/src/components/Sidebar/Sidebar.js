@@ -25,7 +25,7 @@ export default function Sidebar() {
         label: "Application",
         subItems: [
           {
-            path: "/admin/costestimation/sub-item-1",
+            path: "/form/",
             label: "New Application",
             subItems: [
               {
@@ -112,43 +112,38 @@ export default function Sidebar() {
   };
 
   const renderDropdown = (item) => {
-    const isOpen = openDropdowns[item.path];
-
     return (
-      <li className="mb-2" key={item.path}>
-        <button
-          onClick={() => toggleDropdown(item.path)}
-          className="text-base py-2 px-3 font-medium flex items-center w-full text-left bg-white text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition duration-200 ease-in-out"
-        >
-          <span>{item.label}</span>
-          <FaAngleDown
-            className={`ml-auto text-gray-500 transition-transform duration-200 ${
-              isOpen ? "transform rotate-180" : ""
-            }`}
-          />
-        </button>
-        {isOpen && item.subItems && (
-          <ul className="pl-4 mt-1 border-l-2 border-gray-100">
-            {item.subItems.map((subItem) => (
-              <li key={subItem.path} className="my-1">
-                {subItem.subItems ? (
-                  renderDropdown(subItem)
-                ) : (
-                  <Link
-                    to={subItem.path}
-                    className="text-sm py-2 px-3 flex items-center text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition duration-200 ease-in-out"
-                  >
-                    <FaChevronRight className="text-xs text-gray-400 mr-2" />
-                    {subItem.label}
-                  </Link>
+        <li className="mb-2" key={item.path}>
+          <Link
+              to={item.path}
+              className="text-base py-2 px-3 font-medium flex items-center w-full text-left bg-white text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition duration-200 ease-in-out"
+          >
+            <span>{item.label}</span>
+          </Link>
+
+          {item.subItems && (
+              <ul className="pl-4 mt-1 border-l-2 border-gray-100">
+                {item.subItems.map((subItem) =>
+                    subItem.subItems ? (
+                        renderDropdown(subItem)
+                    ) : (
+                        <li key={subItem.path} className="my-1">
+                          <Link
+                              to={subItem.path}
+                              className="text-sm py-2 px-3 flex items-center text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition duration-200 ease-in-out"
+                          >
+                            <FaChevronRight className="text-xs text-gray-400 mr-2" />
+                            {subItem.label}
+                          </Link>
+                        </li>
+                    )
                 )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </li>
+              </ul>
+          )}
+        </li>
     );
   };
+
 
   return (
     <div>

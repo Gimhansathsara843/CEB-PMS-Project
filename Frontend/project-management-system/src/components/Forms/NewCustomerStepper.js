@@ -8,6 +8,7 @@ import { CustomerDetails } from "../Forms/StepperComponents/CustomerDetails";
 import { ContactPersonDetails } from "../Forms/StepperComponents/ContactPersonDetails.js";
 import { ServiceLocationDetails } from "../Forms/StepperComponents/ServiceLocationDetails";
 import { ConnectionDetails } from "../Forms/StepperComponents/ConnectionDetails";
+import DocumentUpload from "./StepperComponents/DocumentUpload";
 
 const NewCustomerStepper = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -69,6 +70,13 @@ const NewCustomerStepper = () => {
     customerType: "DOME",
   });
 
+  // Document Upload state
+  const [documentUpload, setDocumentUpload] = useState({
+    idCopy: "",
+    ownershipCertificate: "",
+    gramaNiladhariCertificate: "",
+  });
+
   // Sync deptId whenever serviceLocationDetails.deptId changes
   useEffect(() => {
     setContactPersonDetails((prevDetails) => ({
@@ -98,6 +106,12 @@ const NewCustomerStepper = () => {
     setConnectionDetails({ ...connectionDetails, [name]: value });
   };
 
+  const handleDocumentUploadChange = (e) => {
+    const { name, files } = e.target;
+    setDocumentUpload({ ...documentUpload, [name]: files[0] }); // Store the File object
+  };
+
+
   // Check if a form is completed - basic validation
   const isFormCompleted = (formData, requiredFields) => {
     if (!requiredFields || requiredFields.length === 0) return true;
@@ -111,6 +125,7 @@ const NewCustomerStepper = () => {
   };
   const applicantDto = { ...customerDetails };
   const applicationDto = { ...contactPersonDetails };
+  const documentDto = { ...documentUpload };
 
 
   // const fetchCustomerById = async (id) => {
@@ -156,7 +171,7 @@ const NewCustomerStepper = () => {
       "preferredLanguage",
     ];
     const requiredServiceFields = [
-      "deptId",
+      // "deptId",
       "serviceStreetAddress",
       "serviceCity",
     ];
@@ -167,6 +182,11 @@ const NewCustomerStepper = () => {
       "tariffCatCode",
     ];
     const requiredContactFields = ["contactName", "contactMobile"];
+    const requiredDocumentUploadFields = [
+      "idCopy",
+      "ownershipCertificate",
+      "gramaNiladhariCertificate",
+    ];
 
     setCompletedTabs([
       isFormCompleted(customerDetails, requiredCustomerFields),
@@ -179,6 +199,7 @@ const NewCustomerStepper = () => {
     serviceLocationDetails,
     connectionDetails,
     contactPersonDetails,
+      documentUpload,
   ]);
   const handleSubmit = async () => {
     // Basic validation for required fields
@@ -204,16 +225,16 @@ const NewCustomerStepper = () => {
         body: JSON.stringify(payload),
       });
 
-      const responseData = await response.json().catch(() => null); 
+      const responseData = await response.json().catch(() => null);
 
       if (response.ok) {
         console.log("Success Response:", responseData);
         alert("Application submitted successfully!");
         history.push({
           pathname: ("/success"),
-          state: { 
-            applicationNo: responseData.applicationNo, 
-            customerName: customerDetails.fullName 
+          state: {
+            applicationNo: responseData.applicationNo,
+            customerName: customerDetails.fullName
           }
         });
       } else {
@@ -233,7 +254,7 @@ const NewCustomerStepper = () => {
 
   const tabs = [
     {
-      name: "Customer Details",
+      name: "Application Details",
       content: (
         <CustomerDetails
           formData={customerDetails}
@@ -271,6 +292,15 @@ const NewCustomerStepper = () => {
         />
       ),
     },
+    {
+      name: "Upload Document",
+      content: (
+          <DocumentUpload
+              formData={documentUpload}
+              handleChange={handleDocumentUploadChange}
+          />
+      ),
+    },
   ];
 
   const handleNext = () => {
@@ -289,9 +319,9 @@ const NewCustomerStepper = () => {
       }
     } else if (activeTab === 1) {
       if (
-        !serviceLocationDetails.deptId ||
-        // !serviceLocationDetails.serviceStreetAddress 
-        !serviceLocationDetails.serviceCity 
+     //   !serviceLocationDetails.deptId ||
+        // !serviceLocationDetails.serviceStreetAddress
+        !serviceLocationDetails.serviceCity
         // !serviceLocationDetails.ownership
       ) {
         alert("Please fill all required service location details");
@@ -313,6 +343,15 @@ const NewCustomerStepper = () => {
         !contactPersonDetails.contactMobile
       ) {
         alert("Please fill all required contact person details");
+        return;
+      }
+    } else if (activeTab === 4) {
+      if (
+          !documentUpload.idCopy ||
+          !documentUpload.ownershipCertificate ||
+          !documentUpload.gramaNiladhariCertificate
+      ) {
+        alert("Please upload all required documents");
         return;
       }
     }
@@ -352,33 +391,21 @@ const NewCustomerStepper = () => {
                 {/* Stepper */}
                 <div className="flex justify-between items-center mb-4 mt-4 relative w-full">
                   {tabs.map((tab, index) => (
-                    <div
-                      key={index}
-                      className="relative flex-1 flex flex-col items-center"
-                    >
-                      {/* Connecting line (optional) */}
-                      {index > 0 && (
-                        <div
-                          className={`absolute top-1/2 left-0 transform -translate-y-1/2 h-1 w-full ${
-                            completedTabs[index - 1]
-                              ? "bg-green-500"
-                              : "bg-gray-300"
-                          }`}
-                          style={{ zIndex: -1 }}
-                        ></div>
-                      )}
-
-                      {/* Step circle */}
                       <div
-                        className={`relative z-10 w-10 h-10 flex items-center justify-center rounded-full border-2 transition-all ${
-                          completedTabs[index]
-                            ? "bg-green-500 text-white border-green-600" // Completed - green
-                            : index === activeTab
-                            ? "bg-blue-500 text-white border-blue-600" // Active - blue
-                            : "bg-gray-200 border-gray-400" // Incomplete - gray
-                        }`}
+                          key={index}
+                          className="relative flex-1 flex flex-col items-center"
                       >
-                        {index + 1}
+                        {/* Step circle */}
+                        <div
+                            className={`relative z-10 w-10 h-10 flex items-center justify-center rounded-full border-2 transition-all ${
+                                index === activeTab
+                                    ? "bg-red-400 text-white border-yellow-600" // Active step is yellow
+                                    : completedTabs[index]
+                                        ? "bg-green-500 text-white border-green-600" // Completed step is green
+                                        : "border-gray-400 bg-white text-gray-600" // Future step is gray
+                            }`}
+                        >
+                          {index + 1}
                       </div>
                       <span className="text-xs mt-2">{tab.name}</span>
                     </div>
