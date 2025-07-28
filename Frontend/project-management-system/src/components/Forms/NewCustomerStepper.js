@@ -190,10 +190,12 @@ const NewCustomerStepper = () => {
 
     setCompletedTabs([
       isFormCompleted(customerDetails, requiredCustomerFields),
+      isFormCompleted(contactPersonDetails, requiredContactFields),
       isFormCompleted(serviceLocationDetails, requiredServiceFields),
       isFormCompleted(connectionDetails, requiredConnectionFields),
-      isFormCompleted(contactPersonDetails, requiredContactFields),
+      isFormCompleted(documentUpload, requiredDocumentUploadFields),
     ]);
+
   }, [
     customerDetails,
     serviceLocationDetails,
@@ -256,40 +258,40 @@ const NewCustomerStepper = () => {
     {
       name: "Application Details",
       content: (
-        <CustomerDetails
-          formData={customerDetails}
-          handleChange={handleCustomerDetailsChange}
-          setFormData={setCustomerDetails}
-          customerExists={customerExists}
-        />
-      ),
-    },
-    {
-      name: "Service Location Details",
-      content: (
-        <ServiceLocationDetails
-          formData={serviceLocationDetails}
-          handleChange={handleServiceLocationDetailsChange}
-        />
-      ),
-    },
-    {
-      name: "Connection Details",
-      content: (
-        <ConnectionDetails
-          formData={connectionDetails}
-          handleChange={handleConnectionDetailsChange}
-          handleSubmit={handleSubmit}
-        />
+          <CustomerDetails
+              formData={customerDetails}
+              handleChange={handleCustomerDetailsChange}
+              setFormData={setCustomerDetails}
+              customerExists={customerExists}
+          />
       ),
     },
     {
       name: "Contact Person Details",
       content: (
-        <ContactPersonDetails
-          formData={contactPersonDetails}
-          handleChange={handleContactPersonDetailsChange}
-        />
+          <ContactPersonDetails
+              formData={contactPersonDetails}
+              handleChange={handleContactPersonDetailsChange}
+          />
+      ),
+    },
+    {
+      name: "Service Location Details",
+      content: (
+          <ServiceLocationDetails
+              formData={serviceLocationDetails}
+              handleChange={handleServiceLocationDetailsChange}
+          />
+      ),
+    },
+    {
+      name: "Connection Details",
+      content: (
+          <ConnectionDetails
+              formData={connectionDetails}
+              handleChange={handleConnectionDetailsChange}
+              handleSubmit={handleSubmit}
+          />
       ),
     },
     {
@@ -303,49 +305,50 @@ const NewCustomerStepper = () => {
     },
   ];
 
+
   const handleNext = () => {
     // Tab-specific validation
     if (activeTab === 0) {
+      // Application Details
       if (
-        !customerDetails.idNo ||
-        !customerDetails.fullName ||
-        !customerDetails.mobileNo ||
-        !customerDetails.streetAddress ||
-        !customerDetails.city ||
-        !customerDetails.preferredLanguage
+          !customerDetails.idNo ||
+          !customerDetails.fullName ||
+          !customerDetails.mobileNo ||
+          !customerDetails.streetAddress ||
+          !customerDetails.city ||
+          !customerDetails.preferredLanguage
       ) {
         alert("Please fill all required customer details");
         return;
       }
     } else if (activeTab === 1) {
+      // Contact Person Details
       if (
-     //   !serviceLocationDetails.deptId ||
-        // !serviceLocationDetails.serviceStreetAddress
-        !serviceLocationDetails.serviceCity
-        // !serviceLocationDetails.ownership
-      ) {
-        alert("Please fill all required service location details");
-        return;
-      }
-    } else if (activeTab === 2) {
-      if (
-        !connectionDetails.phase ||
-        !connectionDetails.connectionType ||
-        !connectionDetails.customerCategory ||
-        !connectionDetails.tariffCatCode
-      ) {
-        alert("Please fill all required connection details");
-        return;
-      }
-    } else if (activeTab === 3) {
-      if (
-        !contactPersonDetails.contactName ||
-        !contactPersonDetails.contactMobile
+          !contactPersonDetails.contactName ||
+          !contactPersonDetails.contactMobile
       ) {
         alert("Please fill all required contact person details");
         return;
       }
+    } else if (activeTab === 2) {
+      // Service Location Details
+      if (!serviceLocationDetails.serviceCity) {
+        alert("Please fill all required service location details");
+        return;
+      }
+    } else if (activeTab === 3) {
+      // Connection Details
+      if (
+          !connectionDetails.phase ||
+          !connectionDetails.connectionType ||
+          !connectionDetails.customerCategory ||
+          !connectionDetails.tariffCatCode
+      ) {
+        alert("Please fill all required connection details");
+        return;
+      }
     } else if (activeTab === 4) {
+      // Document Upload
       if (
           !documentUpload.idCopy ||
           !documentUpload.ownershipCertificate ||
@@ -355,6 +358,7 @@ const NewCustomerStepper = () => {
         return;
       }
     }
+
 
     // Mark current tab as completed
     const newCompletedTabs = [...completedTabs];

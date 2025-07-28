@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5e0812e-e2f6-4e54-8545-4a9153c22f19" name="Changes" comment="" />
+    <list default="true" id="a5e0812e-e2f6-4e54-8545-4a9153c22f19" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Frontend/project-management-system/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/project-management-system/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/project-management-system/src/components/Forms/NewCustomerStepper.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/project-management-system/src/components/Forms/NewCustomerStepper.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,6 +79,7 @@
       <workItem from="1753416499250" duration="89000" />
       <workItem from="1753416604392" duration="521000" />
       <workItem from="1753417338233" duration="60000" />
+      <workItem from="1753678736350" duration="14000" />
     </task>
     <servers />
   </component>
