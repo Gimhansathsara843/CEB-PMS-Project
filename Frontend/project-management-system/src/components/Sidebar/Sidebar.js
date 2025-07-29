@@ -83,6 +83,13 @@ export default function Sidebar() {
           { path: "/admin/closed-job/sub-item-2", label: "Sub Item 2" },
         ],
       },
+      {
+        path: "/admin/calendar",
+        label: "Calendar",
+        subItems: [
+          { path: "/admin/scheduler", label: "View Calendar" },
+        ],
+      }
     ],
     DEO: [
       {
